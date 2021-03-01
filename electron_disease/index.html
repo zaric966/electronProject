@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日疫情</title>
+    <style>
+        .app-control{
+            height: 30px;
+            border-bottom:1px solid whitesmoke ;
+            -webkit-app-region:drag;
+            display: grid;
+            place-items: center;
+        }
+        .container{
+            display: grid;
+            place-items: center;
+            flex: 1;
+        }
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+        body{
+            display: flex;
+        }
+        h1{
+            text-align: center;
+            margin: 0;
+        }
+        #title{
+            font-size: 20vmin;
+            color: tomato;
+        }
+        #number{
+            font-size: 30vmin;
+            color: aqua;
+            text-decoration:underline ;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-control">疫情实况</div>
+    <div class="container">
+        <div class="row">
+            <h1 id="title">今日新增</h1>
+            <h1 id="number">获取中....</h1>
+        </div>
+    </div>
+<script>
+    const title = document.querySelector('#title');
+    const number = document.querySelector('#number');
+
+    fetch("https://c.m.163.com/ug/api/wuhan/app/data/list-total?t=322916944923")
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            const confirm = data.data.chinaTotal.today.confirm;
+            number.innerHTML = confirm;
+        })
+</script>
+</body>
+</html>
