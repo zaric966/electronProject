@@ -6,59 +6,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>今日疫情</title>
     <style>
-        .app-control{
-            height: 30px;
-            border-bottom:1px solid whitesmoke ;
-            -webkit-app-region:drag;
-            display: grid;
-            place-items: center;
+        span{
+            display: inline-block;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
         }
         .container{
-            display: grid;
-            place-items: center;
-            flex: 1;
+            width: auto;
+            padding: 5px;
+            border: 1px silver solid;
+            border-radius: 10px;
         }
-        html,body{
-            height: 100%;
-            overflow: hidden;
+        #jy{
+            color: darkgoldenrod;
+            text-decoration:underline ;
+            border-right: 1px silver dotted;
         }
-        body{
-            display: flex;
+        #wz{
+            color: darkred;
+            text-decoration:underline ;
+            border-right: 1px silver dotted;
         }
-        h1{
-            text-align: center;
-            margin: 0;
+        #qz{
+            color: deeppink;
+            text-decoration:underline ;
         }
-        #title{
-            font-size: 20vmin;
-            color: tomato;
+        #ljq{
+            color: hotpink;
+            text-decoration:underline ;
+            border-right: 1px silver dotted;
         }
-        #number{
-            font-size: 30vmin;
-            color: aqua;
+        #ljs{
+            color: lightslategray;
+            text-decoration:underline ;
+            border-right: 1px silver dotted;
+        }
+        #ljz{
+            color: palegreen;
             text-decoration:underline ;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="app-control">疫情实况</div>
     <div class="container">
         <div class="row">
-            <h1 id="title">今日新增</h1>
-            <h1 id="number">获取中....</h1>
+            <span class="col-md-4">境外输入增加</span>
+            <span class="col-md-4">无症状增加</span>
+            <span class="col-md-4">现有确诊增加</span>
+        </div>
+        <div class="row">
+            <span class="col-md-4" id="jy"></span>
+            <span class="col-md-4" id="wz"></span>
+            <span class="col-md-4" id="qz"></span>
+        </div>
+        <div class="row">
+            <span class="col-md-4">累计确诊增加</span>
+            <span class="col-md-4">累计死亡增加</span>
+            <span class="col-md-4">累计治愈增加</span>
+        </div>
+        <div class="row">
+            <span class="col-md-4" id="ljq"></span>
+            <span class="col-md-4" id="ljs"></span>
+            <span class="col-md-4" id="ljz"></span>
         </div>
     </div>
 <script>
     const title = document.querySelector('#title');
-    const number = document.querySelector('#number');
+    const jy = document.querySelector('#jy');
+    const wz = document.querySelector('#wz');
+    const qz = document.querySelector('#qz');
+    const ljq = document.querySelector('#ljq');
+    const ljs = document.querySelector('#ljs');
+    const ljz = document.querySelector('#ljz');
 
-    fetch("https://c.m.163.com/ug/api/wuhan/app/data/list-total?t=322916944923")
+    fetch("https://c.m.163.com/ug/api/wuhan/app/data/list-total?t=322933883300")
         .then(res=>res.json())
         .then(data=>{
-            console.log(data);
             const confirm = data.data.chinaTotal.today.confirm;
-            number.innerHTML = confirm;
+            jy.innerHTML = data.data.chinaTotal.today.input;
+            wz.innerHTML = data.data.chinaTotal.extData.incrNoSymptom;
+            qz.innerHTML = data.data.chinaTotal.today.storeConfirm;
+            ljq.innerHTML = confirm;
+            ljs.innerHTML = data.data.chinaTotal.today.dead;
+            ljz.innerHTML = data.data.chinaTotal.today.heal;
         })
 </script>
+
 </body>
 </html>
